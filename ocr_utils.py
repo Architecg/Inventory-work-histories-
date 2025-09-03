@@ -11,7 +11,7 @@ from typing import Any, Dict, List
 import argparse
 
 
-from expresiones import OCR_PATTERNS
+from express import OCR_PATTERN as OCR_PATTERNS
 
 def normalize_text(text: str) -> str:
     """Return a normalized, ASCII-only, lowercase string with collapsed spaces."""

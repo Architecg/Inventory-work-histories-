@@ -27,12 +27,7 @@ OUTPUT_DIR_CTRL = r'C:\Users\juans\Documents\proarchitecg\version_2_docker\model
 
 CONF_THRESH = 0.5
 SCORING_MIN = 2
-
 # ----------------- UTILIDADES -----------------
-def normalize_text(text: str) -> str:
-    text = unicodedata.normalize("NFKD", text).encode("ASCII", "ignore").decode()
-    return re.sub(r"\s+", "", text).strip().lower()
-
 def extract_page_number(file_name: str) -> float:
     match = (re.search(r"pagina[_-]?(\d+)", file_name, re.IGNORECASE)
             or re.search(r"(\d+)", file_name))
@@ -72,8 +67,14 @@ def visual_predict(model, image_path: str, strict: bool = True):
     return model.names[index], max(arr)
 
 # ----------------- OCR / IMÁGENES -----------------
+def normalize_filename(name: str) -> str:
+    name = unicodedata.normalize("NFKD", name).encode("ASCII", "ignore").decode()
+    return re.sub(r"\s+", " ", name).strip().lower()
+
+
 def find_persona_images(root_path: str):
     persona_images = {}
+    display_names = {}
     for dirpath, _, files in os.walk(root_path):
         images = [
             os.path.join(dirpath, file_name)
@@ -81,13 +82,22 @@ def find_persona_images(root_path: str):
             if file_name.lower().endswith((".png", ".jpg", ".jpeg"))
         ]
         if images:
-            persona_name = normalize_text(os.path.basename(dirpath))
+            raw_name = os.path.basename(dirpath)
+            persona_name = normalize_text(raw_name)
             persona_images.setdefault(persona_name, []).extend(images)
-    return persona_images
+            display_names[persona_name] = normalize_filename(raw_name)
+    return persona_images, display_names
 
 
 def build_ocr_map(root_path: str):
     json_map = {}
+    if os.path.isfile(root_path):
+        file_name = os.path.basename(root_path)
+        if file_name.lower().endswith(".json"):
+            normalized_name = normalize_text(os.path.splitext(file_name)[0])
+            json_map[normalized_name] = root_path
+        return json_map
+
     for dirpath, _, files in os.walk(root_path):
         for file_name in files:
             if file_name.lower().endswith(".json"):
@@ -188,7 +198,7 @@ def remove_holes(sheet, hole_ranges):
 
 
 def generate_control_sheet(persona_df, persona_name):
-    output_path = os.path.join(OUTPUT_DIR_CTRL, f"{persona_name}_hoja_control.xlsx")
+    output_path = os.path.join(OUTPUT_DIR_CTRL, f"{persona_name}_hoja_de_control.xlsx")
     if os.path.exists(output_path):
         print(f"⚠️ Ya existe hoja de control para '{persona_name}', omitiendo.")
         return
@@ -199,6 +209,15 @@ def generate_control_sheet(persona_df, persona_name):
 
     holes = ["B57:B59", "C57:F59", "D60:F60"]
     remove_holes(sheet, holes)
+
+    data_start = START_ROW
+    data_end = START_ROW + len(persona_df) - 1
+    for merged in list(sheet.merged_cells.ranges):
+        if (
+            merged.max_row >= data_start and merged.min_row <= data_end
+            and merged.max_col >= 1 and merged.min_col <= 7
+        ):
+            sheet.unmerge_cells(str(merged))
 
     for index, record in enumerate(persona_df.sort_values("posicion").itertuples(), start=1):
         row = START_ROW + index - 1
@@ -216,12 +235,13 @@ def main():
     model = YOLO(MODEL_PATH)
 
     json_map = build_ocr_map(OCR_ROOT)
-    persona_images = find_persona_images(IMAGES_ROOT)
+    persona_images, display_names = find_persona_images(IMAGES_ROOT)
 
     all_rows, global_id = [], 1
 
     for persona_key, image_paths in persona_images.items():
-        print(f"\nProcesando persona '{persona_key}' con {len(image_paths)} imágenes…")
+        display_name = display_names.get(persona_key, persona_key)
+        print(f"\nProcesando persona '{display_name}' con {len(image_paths)} imágenes…")
         text_lookup = {}
         persona_records = []
 
@@ -235,14 +255,21 @@ def main():
                 image_from_record = record.get("imagen", "")
                 text = record.get("texto", "")
                 if page is not None:
-                    text_lookup[page] = text
+                    try:
+                        num = int(page)
+                        text_lookup[num] = text
+                        text_lookup[str(num)] = text
+                    except (ValueError, TypeError):
+                        text_lookup[str(page)] = text
                 if image_from_record:
                     text_lookup[os.path.basename(image_from_record)] = text
 
         for image_path in sorted(image_paths, key=extract_page_number):
             page = extract_page_number(image_path)
-            text = (text_lookup.get(os.path.basename(image_path))
-                    or text_lookup.get(page, ""))
+            basename = os.path.basename(image_path)
+            text = (text_lookup.get(basename)
+                    or text_lookup.get(page)
+                    or text_lookup.get(str(page), ""))
             label, score, layer = classify(text, model, image_path)
 
             record = {
@@ -261,7 +288,7 @@ def main():
         if persona_records:
             persona_df = pd.DataFrame(persona_records)
             persona_df["correct"] = persona_df["persona"] == persona_df["predicted"]
-            generate_control_sheet(persona_df, persona_key)
+            generate_control_sheet(persona_df, display_name)
 
     print("\n⏳ Generando DataFrame y guardando", OUTPUT_FILE)
     df = pd.DataFrame(all_rows)
@@ -309,7 +336,8 @@ def main():
             sheet.cell(row=row, column=6, value=int(record.posicion))
             sheet.cell(row=row, column=7, value=int(record.posicion))
 
-        out = os.path.join(OUTPUT_DIR_CTRL, f"{persona_name}_hoja_control.xlsx")
+        display_name = display_names.get(persona_name, persona_name)
+        out = os.path.join(OUTPUT_DIR_CTRL, f"{display_name}_hoja_de_control.xlsx")
         workbook.save(out)
         print("✅ Control:", out)
 
