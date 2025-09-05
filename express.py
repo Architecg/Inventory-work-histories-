@@ -1,6 +1,6 @@
 import re
 OCR_PATTERN = {
-    "aceptacion_de_nombramiento":[
+    "Aceptacion de Nombramiento":[
         re.compile(r"oficio de aceptaci[oó]n de nombramiento", re.IGNORECASE),
         re.compile(r"camara de representantes", re.IGNORECASE),
         re.compile(r"acepto el cargo", re.IGNORECASE),
@@ -10,7 +10,7 @@ OCR_PATTERN = {
         re.compile(r"aceptacion de cargo", re.IGNORECASE),
         re.compile(r"si acepta el cargo", re.IGNORECASE),
     ],
-    "acta_de_posesion":[
+    "Acta de Posesion":[
         re.compile(r"division de personal", re.IGNORECASE),
         re.compile(r"jefatura de personal", re.IGNORECASE),
         re.compile(r"acta de posesion", re.IGNORECASE),
@@ -19,7 +19,7 @@ OCR_PATTERN = {
         re.compile(r"con asignacion basica", re.IGNORECASE),
         re.compile(r"en constancia se firma", re.IGNORECASE),
     ],
-    "acto_administrativo_nombramiento":[
+    "Acto Administrativo Nombramiento":[
         re.compile(r"acto administrativo de nombramiento", re.IGNORECASE),
         re.compile(r"por medio de la cual", re.IGNORECASE),
         re.compile(r"se hace un nombramiento", re.IGNORECASE),
@@ -32,12 +32,12 @@ OCR_PATTERN = {
         re.compile(r"si acepta", re.IGNORECASE),
         re.compile(r"el cargo de", re.IGNORECASE),
     ],
-    "certificacion_arl":[
+    "Certificacion ARL":[
         re.compile(r"seguros", re.IGNORECASE),
         re.compile(r"administradora de riesgos laborales", re.IGNORECASE),
         re.compile(r"se encuentra vinculado", re.IGNORECASE),
     ],
-    "certificado_antecendentes_fiscales":[
+    "Certificado Antecendentes Fiscales":[
         re.compile(r"certificado de antecedentes fiscales", re.IGNORECASE),
         re.compile(r"contraloria", re.IGNORECASE),
         re.compile(r"delegada para investigaciones", re.IGNORECASE),
@@ -52,7 +52,7 @@ OCR_PATTERN = {
         re.compile(r"policia", re.IGNORECASE),
         re.compile(r"firma y sello",re.IGNORECASE),
     ],
-    "certificado_antecendentes_judiciales":[
+    "Certificado Antecendentes Judiciales":[
         re.compile(r"departamento admnistrativo", re.IGNORECASE),
         re.compile(r"certificado de antecedentes judiciales", re.IGNORECASE),
         re.compile(r"policia nacional", re.IGNORECASE),
@@ -60,18 +60,18 @@ OCR_PATTERN = {
         re.compile(r"requirimientos judiciales", re.IGNORECASE),
         re.compile(r"no tiene asuntos pendientes", re.IGNORECASE),
         re.compile(r"no tiene asuntos", re.IGNORECASE),
-        re.compile(r"indice derecho"), re.IGNORECASE,
+        re.compile(r"indice derecho", re.IGNORECASE),
         re.compile(r"judiciales", re.IGNORECASE),
         re.compile(r"con las autoridades judiciales", re.IGNORECASE),
     ],
-    "certificado_cuenta_bancaria":[
+    "Certificado Cuenta Bancaria":[
         re.compile(r"bancolombia", re.IGNORECASE),
         re.compile(r"banco", re.IGNORECASE),
         re.compile(r"los siguientes productos", re.IGNORECASE),
         re.compile(r"nombre producto no", re.IGNORECASE),
         re.compile(r"cuenta de ahorros", re.IGNORECASE),
     ],
-    "certificado_afp":[
+    "Certificado AFP":[
         re.compile(r"colfondos", re.IGNORECASE),
         re.compile(r"pensiones y cesantias", re.IGNORECASE),
         re.compile(r"se encuentra", re.IGNORECASE),
@@ -79,7 +79,7 @@ OCR_PATTERN = {
         re.compile(r"ley 527 de 1999", re.IGNORECASE),
         re.compile(r"pensiones y cesantias", re.IGNORECASE),
     ],
-    "certificado_antecedentes disciplinarios":[
+    "Certificado Antecedentes Disciplinarios":[
         re.compile(r"certificado de", re.IGNORECASE),
         re.compile(r"procuraduria", re.IGNORECASE),
         re.compile(r"certificado de antecendentes", re.IGNORECASE),
@@ -88,16 +88,17 @@ OCR_PATTERN = {
         re.compile(r"ni inhabilidades vigentes", re.IGNORECASE),
         re.compile(r"certifica que una vez consultado", re.IGNORECASE),
     ],
-    "certificado_salud":[],
-    "certificado_estudios_profesionales":[re.compile(r"certificado de estudio", re.IGNORECASE),
+    "Certificado Salud":[],
+    "Certificado Estudios Profesionales":[
+        re.compile(r"certificado de estudio", re.IGNORECASE),
         re.compile(r"institucion de educacion", re.IGNORECASE),
         re.compile(r"escuela tecnica", re.IGNORECASE),
         re.compile(r"certificado de asistencia", re.IGNORECASE),
         re.compile(r"diplomado", re.IGNORECASE),
     ],
-    "certificado_estudios_tecnicos":[
+    "Certificado Estudios Tecnicos":[
     ],
-    "certificados_experiencia_laboral":[
+    "Certificados Experiencia Laboral":[
         re.compile(r"certificado laboral", re.IGNORECASE),
         re.compile(r"constancia de tiempo", re.IGNORECASE),
         re.compile(r"tiempode servicios prestados", re.IGNORECASE),
@@ -121,9 +122,9 @@ OCR_PATTERN = {
         re.compile(r"tiempo de servicios", re.IGNORECASE),
         re.compile(r"prestados para empleados", re.IGNORECASE),
         ],
-    "compromiso_libreta_militar":[
+    "Compromiso Libreta Militar":[
         re.compile(r"declaraci[oó]n de compromiso de la libreta militar", re.IGNORECASE)],
-    "declaracion_bienes_rentas":[
+    "Declaracion Bienes Rentas":[
         re.compile(r"declaraci[oó]n de bienes y rentas", re.IGNORECASE),
         re.compile(r"sigep", re.IGNORECASE),
         re.compile(r"formato declaracion", re.IGNORECASE),
@@ -132,21 +133,20 @@ OCR_PATTERN = {
         re.compile(r"actividad economica privada", re.IGNORECASE),
         re.compile(r"persona natural", re.IGNORECASE),
         ],
-
-    "declaracion_demanda_alimentos":[
+    "Declaracion Demanda Alimentos":[
         re.compile(r"no tengo", re.IGNORECASE),
         re.compile(r"caracter alimentario", re.IGNORECASE),
         re.compile(r"cursen en mi contra", re.IGNORECASE),
         re.compile(r"la ley 311", re.IGNORECASE),
     ],
-    "declaracion_juramentada":[],
-    "diploma_bachiller":[
+    "Declaracion Juramentada":[],
+    "Diploma Bachiller":[
         re.compile(r"Autorizado por la", re.IGNORECASE),
         re.compile(r"Art 28", re.IGNORECASE),
         re.compile(r"colegio", re.IGNORECASE),
         re.compile(r"colegto", re.IGNORECASE),
     ],
-    "documento_identidad":[
+    "Documento Identidad":[
         re.compile(r"CEDULA DE", re.IGNORECASE),
         re.compile(r"documento de identificaci[oó]n", re.IGNORECASE),
         re.compile(r"identificacion personal", re.IGNORECASE),
@@ -157,7 +157,7 @@ OCR_PATTERN = {
         re.compile(r"Derecho", re.IGNORECASE),
         re.compile(r"indice derecho", re.IGNORECASE),
     ],
-    "examen_medico_ingreso":[
+    "Examen Medico Ingreso":[
         re.compile(r"valor", re.IGNORECASE),
         re.compile(r"particulares", re.IGNORECASE),
         re.compile(r"recibo no", re.IGNORECASE),
@@ -178,13 +178,13 @@ OCR_PATTERN = {
         re.compile(r"certificado de aptitud para afiliacion", re.IGNORECASE),
         re.compile(r"examen de afiliacion", re.IGNORECASE),
     ],
-    "formato_autorizacion_descuento":[
+    "Formato Autorizacion Descuento":[
         re.compile(r"autorizacion de descuentos", re.IGNORECASE),
         re.compile(r"autorizo al pagador", re.IGNORECASE),
         re.compile(r"corporacion para que descuente de mis emolumentos", re.IGNORECASE),
     ],
-    "formato_compromisos_regimenes_especiales":[],
-    "formato_datos_notficacion_afiliacion":[
+    "Formato Compromisos Regimenes Especiales":[],
+    "Formato Datos Notficacion Afiliacion":[
         re.compile(r"certificacion de afiliacion", re.IGNORECASE),
         re.compile(r"informacion del afiliado", re.IGNORECASE),
         re.compile(r"informacion de los beneficiarios", re.IGNORECASE),
@@ -204,7 +204,7 @@ OCR_PATTERN = {
         re.compile(r"datos de notificacion", re.IGNORECASE),
         re.compile(r"y afiliacion", re.IGNORECASE),
     ],
-    "formato_induccion":[
+    "Formato Induccion":[
         re.compile(r"induccion", re.IGNORECASE),
         re.compile(r"he recibido la induccion", re.IGNORECASE),
         re.compile(r"fue realizado el processo de induccion", re.IGNORECASE),
@@ -212,13 +212,13 @@ OCR_PATTERN = {
         re.compile(r"manual de funciones", re.IGNORECASE),
         re.compile(r"video de induccion", re.IGNORECASE),
     ],
-    "formato_tratamiento_datos":[],
-    "formato_declaracion_documenntos_autenticos":[],
-    "formato_prepensionados":[],
-    "formato_verificacion_de_requisitos_para_vinculacion":[
+    "Formato Tratamiento Datos":[],
+    "Formato Declaracion Documenntos Autenticos":[],
+    "Formato Prepensionados":[],
+    "Formato Verificacion de Requisitos para Vinculacion":[
         re.compile(r"certificaci[oó]n del cumplimiento de requisitos", re.IGNORECASE),
     ],
-    "formulario_afiliacion_caja_de_compensacion":[
+    "Formulario Afiliacion Caja de Compensacion":[
         re.compile(r"formulario de afiliaci[oó]n a caja de compensaci[oó]n", re.IGNORECASE),
         re.compile(r"inscripcion trabajados", re.IGNORECASE),
         re.compile(r"datos del trabajador", re.IGNORECASE),
@@ -228,11 +228,11 @@ OCR_PATTERN = {
         re.compile(r"para subsidio familiar", re.IGNORECASE),
         re.compile(r"afiliacion aprobad unicamente", re.IGNORECASE),
     ],
-    "formulario_afiliacion_cesantias":[
+    "Formulario Afiliacion Cesantias":[
         re.compile(r"formulario de afiliaci[oó]n a cesant[ií]as", re.IGNORECASE),
     ],
-    "formulario_afiliacion_eps":[],
-    "hoja_de_vida_de_la_funcion_publica":[
+    "Formulario Afiliacion EPS":[],
+    "Hoja de Vida de la Funcion Publica":[
         re.compile(r"hoja de vida del funcionario", re.IGNORECASE),
         re.compile(r"formato unico", re.IGNORECASE),
         re.compile(r"LEY 190 DE 1995", re.IGNORECASE),
@@ -255,20 +255,19 @@ OCR_PATTERN = {
         re.compile(r"nombre del empleado", re.IGNORECASE),
 
     ],
-    "idoneidad":[],
-    "libreta_militar_certificacion":[],
-    "oficio_notificacion_de_nombramiento":[
+    "Idoneidad":[],
+    "Libreta Militar Certificacion":[],
+    "Oficio Notificacion de Nombramiento":[
         re.compile(r"atentamente me permito", re.IGNORECASE),
         re.compile(r"le ha nombrado", re.IGNORECASE),
         re.compile(r"para ocupar el cargo", re.IGNORECASE),
         re.compile(r"si acepta", re.IGNORECASE),
         re.compile(r"sirvase informar a esta secretaria", re.IGNORECASE),
-
     ],
-    "oficio_postulacion":[],
-    "protocolo_integral_para_la_prevencion_y_orientacion_institucional_frente_a_conductas_de_violencia_sexual_en_el_ambito_laboral_y_contractual":[],
-    "registro_tarjeta_profesional":[],
-    "resolucion de novedades":[
+    "Oficio Postulacion":[],
+    "Protocolo_integral_para_la_prevencion_y_orientacion_institucional_frente_a_conductas_de_violencia_sexual_en_el_ambito_laboral_y_contractual":[],
+    "Registro Tarjeta Profesional":[],
+    "Resolucion de Novedades":[
         re.compile(r"comision de la mesa", re.IGNORECASE),
         re.compile(r"resolucion no", re.IGNORECASE),
         re.compile(r"por la cual", re.IGNORECASE),
@@ -280,7 +279,7 @@ OCR_PATTERN = {
         re.compile(r"continuacion de", re.IGNORECASE),
         re.compile(r"de la resolucion", re.IGNORECASE),
     ],
-    "resolucion solicitud":[
+    "Resolucion Solicitud":[
         re.compile(r"por medio", re.IGNORECASE),
         re.compile(r"de la presente", re.IGNORECASE),
         re.compile(r"me dirijo a usted", re.IGNORECASE),
@@ -289,7 +288,7 @@ OCR_PATTERN = {
         re.compile(r"el tiempo de servicio", re.IGNORECASE),
         re.compile(r"atentamente", re.IGNORECASE),
     ],
-    "acta de grado":[
+    "Acta de Grado":[
         re.compile(r"colegio", re.IGNORECASE),
         re.compile(r"acta", re.IGNORECASE),
         re.compile(r"para otorgar el titulo", re.IGNORECASE),
@@ -298,7 +297,7 @@ OCR_PATTERN = {
         re.compile(r"de certificacion", re.IGNORECASE),
         re.compile(r"acta individual de emision", re.IGNORECASE),                
     ],
-    "compromiso actualizar hoja de vida":[
+    "Compromiso Actualizar Hoja de Vida":[
         re.compile(r"compromiso para actualizar hoja", re.IGNORECASE),
         re.compile(r"me comprometo", re.IGNORECASE),
         re.compile(r"ley 019 de 2012", re.IGNORECASE),

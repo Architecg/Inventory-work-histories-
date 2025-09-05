@@ -17,7 +17,7 @@ def normalize_text(text: str) -> str:
     """Return a normalized, ASCII-only, lowercase string with collapsed spaces."""
     text = unicodedata.normalize("NFKD", text)
     text = text.encode("ascii", "ignore").decode("ascii")
-    text = re.sub(r"\s+", " ", text)
+    text = re.sub(r"[^0-9a-zA-Z\s]", " ", text)
     return text.strip().lower()
 
 
@@ -44,6 +44,37 @@ def process_pages(pages: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
         }
         processed.append(updated)
     return processed
+
+def normalize_ocr_file(json_path: str) -> List[Dict[str, Any]]:
+    """Load a single OCR JSON file and return processed page entries.
+
+    Each entry in the returned list contains the raw text (``texto_raw``),
+    its normalized version (``texto_norm``) and the list of matching pattern
+    keys (``coincidencias``).
+    """
+    data = json.loads(Path(json_path).read_text(encoding="utf-8"))
+    pages = data["pages"] if isinstance(data, dict) and "pages" in data else data
+    return process_pages(pages)
+
+
+def normalize_ocr_root(root_path: str) -> Dict[str, List[Dict[str, Any]]]:
+    """Normalize all OCR JSON files found at ``root_path``.
+
+    ``root_path`` may point to a directory containing multiple JSON files or
+    to a single JSON file.  The returned dictionary maps the normalized file
+    stem to the list of processed page entries produced by
+    :func:`normalize_ocr_file`.
+    """
+    root = Path(root_path)
+
+    if root.is_file():
+        return {normalize_text(root.stem): normalize_ocr_file(str(root))}
+
+    results: Dict[str, List[Dict[str, Any]]] = {}
+    for json_file in root.rglob("*.json"):
+        persona = normalize_text(json_file.stem)
+        results[persona] = normalize_ocr_file(str(json_file))
+    return results
 
 
 def process_json(input_path: str, output_path: str) -> None:
