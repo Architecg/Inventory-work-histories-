@@ -1,0 +1,9 @@
+page_path,quality_score,label_top1,conf_top1,label_top2,conf_top2,margin,entropy,decision
+D:\historias\dev\imagenes_por_doc\LETRA A\ACTA N° 70\1\Abad Abad Rosa Elena\pagina_1.png,0.146,escrito,0.636,certificado experiencia laboral,0.094,0.543,0.338,unknown_low_quality
+D:\historias\dev\imagenes_por_doc\LETRA A\ACTA N° 70\1\Abad Abad Rosa Elena\pagina_2.png,0.052,escrito,0.766,resolución vacaciones,0.04,0.726,0.258,unknown_low_quality
+D:\historias\dev\imagenes_por_doc\LETRA A\ACTA N° 70\1\Abad Abad Rosa Elena\pagina_3.png,0.596,examen medico ingreso,0.963,asistencia,0.026,0.936,0.046,accept
+D:\historias\dev\imagenes_por_doc\LETRA A\ACTA N° 70\1\Abad Abad Rosa Elena\pagina_4.png,0.157,certificado experiencia laboral,0.799,hoja de vida función publica,0.151,0.648,0.156,accept
+D:\historias\dev\imagenes_por_doc\LETRA A\ACTA N° 70\1\Abad Abad Rosa Elena\pagina_5.png,0.446,escrito,0.816,certificados estudios técnicos profesionales,0.083,0.733,0.18,accept
+D:\historias\dev\imagenes_por_doc\LETRA A\ACTA N° 70\1\Abad Abad Rosa Elena\pagina_6.png,0.174,escrito,0.699,certificado experiencia laboral,0.117,0.582,0.258,accept
+D:\historias\dev\imagenes_por_doc\LETRA A\ACTA N° 70\1\Abad Abad Rosa Elena\pagina_7.png,0.148,certificados estudios técnicos profesionales,0.588,escrito,0.362,0.225,0.206,accept
+D:\historias\dev\imagenes_por_doc\LETRA A\ACTA N° 70\1\Abad Abad Rosa Elena\pagina_8.png,0.961,escrito,0.761,certificado de paz y salvo,0.104,0.657,0.231,accept
